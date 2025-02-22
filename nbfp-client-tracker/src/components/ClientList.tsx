@@ -12,18 +12,19 @@ interface ClientListProps {
 
 const ClientList: React.FC<ClientListProps> = ({ clients }) => {
   return (
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <List >
       {clients.map((value) => (
         <ListItem
           key={value}
+          divider
           disableGutters
           secondaryAction={
-            <IconButton aria-label="comment">
+            <IconButton aria-label="go to client's page" color="secondary">
               <CommentIcon />
             </IconButton>
           }
         >
-          <ListItemText primary={`Line item ${value}`} />
+          <ListItemText inset primary={value} />
         </ListItem>
       ))}
     </List>

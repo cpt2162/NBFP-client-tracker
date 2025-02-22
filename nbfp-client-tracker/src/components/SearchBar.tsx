@@ -5,9 +5,9 @@ import SearchIcon from '@mui/icons-material/Search';
 const SearchBar: React.FC = () => {
     return (
         <TextField
-            variant="outlined"
             placeholder="Search..."
             fullWidth
+            sx={{ border: "2px", borderRadius: '5px' }}
             slotProps={{
                 input: {
                     endAdornment: (

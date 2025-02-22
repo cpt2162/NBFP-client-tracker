@@ -9,22 +9,23 @@ import Box from '@mui/material/Box';
 
 const Navbar: React.FC = () => {
     return (
-        <AppBar position="static">
+        <AppBar position="static" className='flex flex-row justify-between align-center'>
             <Toolbar>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    <img src="/path/to/logo.png" alt="Logo" style={{ marginRight: '10px', verticalAlign: 'middle' }} />
-                    Site Title
+                <Typography variant="h4" component="div" className='flex-grow text-center'>
+                    <div className='absolute left-1/2 transform -translate-x-1/2 bottom-2'>
+                        North Buffalo Food Pantry
+                    </div>
                 </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box className='flex flex-row float-right'>
                     <IconButton color="inherit">
                         <AddIcon />
-                        <Typography variant="body1" component="span" sx={{ marginLeft: '5px' }}>
+                        <Typography variant='button' className='ml-1'>
                             Add Client
                         </Typography>
                     </IconButton>
                     <IconButton color="inherit">
                         <AdminPanelSettingsIcon />
-                        <Typography variant="body1" component="span" sx={{ marginLeft: '5px' }}>
+                        <Typography variant='button' className='ml-1'>
                             Admin
                         </Typography>
                     </IconButton>
