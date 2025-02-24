@@ -12,7 +12,7 @@ const Dashboard: React.FC = () => {
 
     useEffect(() => {
         fetchClients();
-    }, []);
+    }, );
 
     const fetchClients = async () => {
         try{

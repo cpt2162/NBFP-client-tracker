@@ -9,14 +9,12 @@ interface DataTableProps {
 
 const DataTable = (props: DataTableProps) => {
     return (
-        <div style={{ height: 400, width: '100%' }}>
-            <DataGrid
-                rows={props.rows}
-                columns={props.columns}
-                pageSizeOptions={[props.pageSize]}
-                disableRowSelectionOnClick
-            />
-        </div>
+        <DataGrid
+            rows={props.rows}
+            columns={props.columns}
+            pageSizeOptions={[props.pageSize]}
+            disableRowSelectionOnClick
+        />
     );
 }
 

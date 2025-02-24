@@ -28,7 +28,14 @@ const houseMemberNameRows = [
     { id: 3, firstName: 'Kade', lastName: 'Sivak' }
 ]
 
+const houseVisitColumns: GridColDef[] = [
+    { field: 'visitDate', headerName: 'Visit Date', width: 100 },
+    { field: 'staffMember', headerName: 'Staff Member', width: 200 }
+];
 
+const houseVisitRows = [
+    { id: 1, visitDate: '10/10/2021' }
+];
 
 interface ClientPageProps {
     clientId: number;
@@ -51,23 +58,28 @@ const ClientPage: React.FC<ClientPageProps> = (id) => {
     }
 
     return (
-        <div className="flex flex-col items-center my-4">
-            <Typography variant="h2" className="pt-8 pb-2">Cameron Turner</Typography>
-            <Typography variant="subtitle1" className="pt-2 pb-2">Address</Typography>
-            <DataTable columns={houseMemberCountColumns} rows={houseMemberCountRows} pageSize={2}/>
-            <div className="w-1/3 my-5">
-                <TextField
-                    id="outlined-multiline-static"
-                    label="Other people authorized to pick up food"
-                    multiline
-                    rows={2}
-                    defaultValue="Add authorized people here"
-                    variant="outlined"
-                    sx={{ mt: 2 }}
-                />
-            </div>
+        <div className="flex flex-col items-center my-4 mx-4">
+            <Typography variant="h2" className="py-2">Cameron Turner</Typography>
+            <Typography variant="subtitle1" className="pb-2">Address</Typography>
             <div className="flex flex-row w-full justify-between">
-                <DataTable columns={houseMemberNameColumns} rows={houseMemberNameRows} pageSize={10}/>
+                <div className="w-1/2 px-2 flex flex-col">
+                    <DataTable columns={houseMemberCountColumns} rows={houseMemberCountRows} pageSize={2}/>
+                    <div className="flex flex-row w-full justify-between">
+                        <TextField
+                            id="outlined-multiline-static"
+                            label="Other people authorized to pick up food"
+                            multiline
+                            rows={2}
+                            defaultValue="Add authorized people here"
+                            variant="outlined"
+                            sx={{ mt: 2 }}
+                        />
+                        <DataTable columns={houseVisitColumns} rows={houseVisitRows} pageSize={10}/>
+                    </div>
+                </div>
+                <div className="w-1/2 px-2">
+                    <DataTable columns={houseMemberNameColumns} rows={houseMemberNameRows} pageSize={10}/>
+                </div>
             </div>
         </div>
     );
