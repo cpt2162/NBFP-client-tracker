@@ -2,39 +2,39 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { TextField, Typography } from "@mui/material";
 import DataTable from "../components/DataTable";
-import { GridColDef } from "@mui/x-data-grid";
+import 'react-data-grid/lib/styles.css';
 
-const houseMemberCountColumns: GridColDef[] = [
-    { field: 'totalMembers', headerName: 'Total Members in Household', width: 200 },
-    { field: 'infants', headerName: 'Infants (<2)', width: 130 },
-    { field: 'toddlers', headerName: 'Toddlers (2-5)', width: 130 },
-    { field: 'children', headerName: 'Children (6-17)', width: 130 },
-    { field: 'adults', headerName: 'Adults (18-59)', width: 130 },
-    { field: 'seniors', headerName: 'Seniors (60+)', width: 130 }
+const houseMemberCountColumns = [
+    { key: 'totalmembers', title: 'Total Members in Household' },
+    { key: 'infants', title: 'Infants (<2)' },
+    { key: 'toddlers', title: 'Toddlers (2-5)' },
+    { key: 'children', title: 'Children (6-17)' },
+    { key: 'adults', title: 'Adults (18-59)' },
+    { key: 'seniors', title: 'Seniors (60+)'}
 ];
 
-const houseMemberCountRows = [
-    { id: 1, totalMembers: 5, infants: 1, toddlers: 0, children: 2, adults: 2, seniors: 0 }
+let houseMemberCountRows = [
+    { totalmembers: 5, infants: 1, toddlers: 0, children: 2, adults: 2, seniors: 0 }
 ];
 
-const houseMemberNameColumns: GridColDef[] = [
-    { field: 'firstName', headerName: 'First Name', width: 200 },
-    { field: 'lastName', headerName: 'Last Name', width: 200 }
+let houseMemberNameColumns = [
+    { key: 'firstname', title: 'First Name' },
+    { key: 'lastname', title: 'Last Name' }
 ];
 
 const houseMemberNameRows = [
-    { id: 1, firstName: 'Cameron', lastName: 'Turner' },
-    { id: 2, firstName: 'Justin', lastName: 'Morris' },
-    { id: 3, firstName: 'Kade', lastName: 'Sivak' }
+    { firstname: 'Cameron', lastname: 'Turner' },
+    { firstname: 'Justin', lastname: 'Morris' },
+    { firstname: 'Kade', lastname: 'Sivak' }
 ]
 
-const houseVisitColumns: GridColDef[] = [
-    { field: 'visitDate', headerName: 'Visit Date', width: 100 },
-    { field: 'staffMember', headerName: 'Staff Member', width: 200 }
+const houseVisitColumns = [
+    { key: 'visitdate', title: 'Visit Date' },
+    { key: 'staffmember', title: 'Staff Member' }
 ];
 
 const houseVisitRows = [
-    { id: 1, visitDate: '10/10/2021' }
+    { visitdate: '10/10/2021', staffmember: 'John Doe' },
 ];
 
 interface ClientPageProps {
@@ -43,6 +43,9 @@ interface ClientPageProps {
 
 const ClientPage: React.FC<ClientPageProps> = (id) => {
     const [clientData, setClientData] = useState<any>({});
+    const [memberCountRows, setMemberCountRows] = useState<any[]>(houseMemberCountRows);
+    const [memberNameRows, setMemberNameRows] = useState<any[]>(houseMemberNameRows);
+    const [visitRows, setVisitRows] = useState<any[]>(houseVisitRows);
     useEffect(() => {
 
     }, []);
@@ -62,23 +65,23 @@ const ClientPage: React.FC<ClientPageProps> = (id) => {
             <Typography variant="h2" className="py-2">Cameron Turner</Typography>
             <Typography variant="subtitle1" className="pb-2">Address</Typography>
             <div className="flex flex-row w-full justify-between">
-                <div className="w-1/2 px-2 flex flex-col">
-                    <DataTable columns={houseMemberCountColumns} rows={houseMemberCountRows} pageSize={2}/>
-                    <div className="flex flex-row w-full justify-between">
-                        <TextField
-                            id="outlined-multiline-static"
-                            label="Other people authorized to pick up food"
-                            multiline
-                            rows={2}
-                            defaultValue="Add authorized people here"
-                            variant="outlined"
-                            sx={{ mt: 2 }}
-                        />
-                        <DataTable columns={houseVisitColumns} rows={houseVisitRows} pageSize={10}/>
-                    </div>
+                <div className="w-1/2 mx-2 pr-4 flex flex-col">
+                    <DataTable columns={houseMemberCountColumns} data={memberCountRows} />
+                    <TextField
+                        id="outlined-multiline-static"
+                        label="Other people authorized to pick up food"
+                        multiline
+                        rows={2}
+                        defaultValue="Add authorized people here"
+                        variant="outlined"
+                        sx={{ mt: 2 }}
+                    />
                 </div>
-                <div className="w-1/2 px-2">
-                    <DataTable columns={houseMemberNameColumns} rows={houseMemberNameRows} pageSize={10}/>
+                <div className="w-1/4 px-10">
+                    <DataTable columns={houseMemberNameColumns} data={memberNameRows} />
+                </div >
+                <div className="w-1/4 px-16">
+                    <DataTable columns={houseVisitColumns} data={visitRows} />
                 </div>
             </div>
         </div>
