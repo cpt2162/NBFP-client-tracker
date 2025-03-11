@@ -26,7 +26,7 @@ const DataTable: React.FC<DataTableProps> = ({ columns, data: initialData, onCel
   };
 
   return (
-    <table className="border border-gray-200 border-collapse w-full">
+    <table className="border !rounded w-full">
         <thead>
         <tr>
             {columns.map((column, index) => (
@@ -53,7 +53,7 @@ const DataTable: React.FC<DataTableProps> = ({ columns, data: initialData, onCel
                 type={typeof row[columnKey] === 'number' ? 'number' : 'text'}
                 value={row[columnKey] as string | number}
                 onChange={(e) => handleChange(rowIndex, columnKey, e)}
-                className="w-full p-1 !border-none"
+                className="w-full p-1 "
                 />
                 </td>
             );

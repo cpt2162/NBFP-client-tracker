@@ -65,34 +65,41 @@ const ClientPage: React.FC<ClientPageProps> = (id) => {
         <div className="flex flex-col items-center my-4 mx-4">
             <Typography variant="h2" className="py-2">Cameron Turner</Typography>
             <Typography variant="subtitle1" className="pb-2">Address</Typography>
-            <div className="flex flex-row h-full w-full justify-between">
+            <div className="flex flex-row h-screen w-full justify-between">
                 <div className="w-1/2 mx-2 pr-4 flex flex-col">
                         <Typography variant="h6" className="py-4" align="center">Client Eligibility</Typography>
+                        <Typography variant="body2">Date of Eligibility Attestation: </Typography>
+
                         <Divider orientation="horizontal" variant="middle" flexItem />
                         <TEFAPEligibility />
                 </div>
                 <Divider orientation="vertical" variant="middle" flexItem />
                 <div className="w-1/2 mx-2 pl-4 flex flex-col">
                     <Typography variant="h6" className="py-4" align="center">Client Information</Typography>
+                    <Typography variant="body2">Date of last change to client information: </Typography>
                     <Divider orientation="horizontal" variant="middle" flexItem />
-                    <DataTable columns={houseMemberCountColumns} data={memberCountRows} />
-                    <TextField
+                    <div className="my-4 flex flex-col">
+                        <div className="my-4">
+                            <DataTable columns={houseMemberCountColumns} data={memberCountRows} />
+                        </div>
+                        <TextField
                         id="outlined-multiline-static"
                         label="Other people authorized to pick up food"
                         multiline
                         rows={2}
                         defaultValue="Add authorized people here"
                         variant="outlined"
-                        sx={{ mt: 2 }}
-                    />
-                    <div className="flex flex-row mt-5 justify-between">
-                        <div className="w-1/2 mx-5" >
-                            <DataTable columns={houseMemberNameColumns} data={memberNameRows} />
-                        </div>
-                        <div className="w-1/2 mx-5">
-                            <DataTable columns={houseVisitColumns} data={visitRows} />
+                        />
+                        <div className="flex flex-row mt-5 justify-between">
+                            <div className="w-1/2 mr-5" >
+                                <DataTable columns={houseMemberNameColumns} data={memberNameRows} />
+                            </div>
+                            <div className="w-1/2 ml-5">
+                                <DataTable columns={houseVisitColumns} data={visitRows} />
+                            </div>
                         </div>
                     </div>
+                   
                 </div>
             </div>
         </div>
