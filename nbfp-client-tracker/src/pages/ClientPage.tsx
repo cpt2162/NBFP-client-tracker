@@ -1,8 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { TextField, Typography } from "@mui/material";
+import { TextField, Typography, Divider } from "@mui/material";
 import DataTable from "../components/DataTable";
-import 'react-data-grid/lib/styles.css';
+import TEFAPIncomeChart from "../components/TEFAPIncomeChart";
+import TEFAPEligibility from "../components/TEFAPEligibilityOptions";
 
 const houseMemberCountColumns = [
     { key: 'totalmembers', title: 'Total Members in Household' },
@@ -64,8 +65,16 @@ const ClientPage: React.FC<ClientPageProps> = (id) => {
         <div className="flex flex-col items-center my-4 mx-4">
             <Typography variant="h2" className="py-2">Cameron Turner</Typography>
             <Typography variant="subtitle1" className="pb-2">Address</Typography>
-            <div className="flex flex-row w-full justify-between">
+            <div className="flex flex-row h-full w-full justify-between">
                 <div className="w-1/2 mx-2 pr-4 flex flex-col">
+                        <Typography variant="h6" className="py-4" align="center">Client Eligibility</Typography>
+                        <Divider orientation="horizontal" variant="middle" flexItem />
+                        <TEFAPEligibility />
+                </div>
+                <Divider orientation="vertical" variant="middle" flexItem />
+                <div className="w-1/2 mx-2 pl-4 flex flex-col">
+                    <Typography variant="h6" className="py-4" align="center">Client Information</Typography>
+                    <Divider orientation="horizontal" variant="middle" flexItem />
                     <DataTable columns={houseMemberCountColumns} data={memberCountRows} />
                     <TextField
                         id="outlined-multiline-static"
@@ -76,12 +85,14 @@ const ClientPage: React.FC<ClientPageProps> = (id) => {
                         variant="outlined"
                         sx={{ mt: 2 }}
                     />
-                </div>
-                <div className="w-1/4 px-10">
-                    <DataTable columns={houseMemberNameColumns} data={memberNameRows} />
-                </div >
-                <div className="w-1/4 px-16">
-                    <DataTable columns={houseVisitColumns} data={visitRows} />
+                    <div className="flex flex-row mt-5 justify-between">
+                        <div className="w-1/2 mx-5" >
+                            <DataTable columns={houseMemberNameColumns} data={memberNameRows} />
+                        </div>
+                        <div className="w-1/2 mx-5">
+                            <DataTable columns={houseVisitColumns} data={visitRows} />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

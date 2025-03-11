@@ -19,9 +19,9 @@ const theme = createTheme({
             default: '#fff',
         },
     },
-    typography: {
-        fontFamily: 'Electrolize, sans-serif',
-    },
+    // typography: {
+    //     fontFamily: 'Electrolize, sans-serif',
+    // },
 });
 
 export default theme;

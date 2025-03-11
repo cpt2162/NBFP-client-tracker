@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 
 const TEFAPIncomeChart: React.FC = () => {
     return (
-        <TableContainer component={Paper}>
+        <TableContainer className='border' component={Paper}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -18,7 +18,7 @@ const TEFAPIncomeChart: React.FC = () => {
                         <TableCell>8</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
+                <TableBody >
                     <TableRow>
                         <TableCell>Anual Income</TableCell>
                         <TableCell>$33,885</TableCell>
