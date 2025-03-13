@@ -26,13 +26,13 @@ const DataTable: React.FC<DataTableProps> = ({ columns, data: initialData, onCel
   };
 
   return (
-    <table className="border !rounded w-full">
+    <table className="border border-separate rounded-lg w-full">
         <thead>
         <tr>
             {columns.map((column, index) => (
             <th
             key={index}
-            className="bg-gray-400 text-left"
+            className={`text-center bg-gray-400 ${index === columns.length - 1 ? '' : 'border-r'}`}
             >
             {column.title}
             </th>
@@ -47,7 +47,7 @@ const DataTable: React.FC<DataTableProps> = ({ columns, data: initialData, onCel
             return (
                 <td
                 key={`${rowIndex}-${columnKey}`}
-                className="border p-2"
+                className={`border-t ${column === columns[columns.length - 1] ? '' : 'border-r'}`}
                 >
                 <input
                 type={typeof row[columnKey] === 'number' ? 'number' : 'text'}
