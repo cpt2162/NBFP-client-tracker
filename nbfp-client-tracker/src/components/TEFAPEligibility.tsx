@@ -13,7 +13,7 @@ const TEFAPEligibility: React.FC = () => {
     <div className='my-4'>
         <div>
           <Typography color='primary' className='!font-semibold'>Select how the client is eligible for TEFAP </Typography>
-          <div className='flex flex-col border rounded'>
+          <div className='flex flex-col border rounded-lg'>
               <div className='flex flex-row items-start my-2'>
                   <Checkbox className='!pt-1'/>
                   <span> <b>Categorical:</b> Clients are categorically eligible to receive USDA Foods through TEFAP if their household
@@ -31,7 +31,7 @@ const TEFAPEligibility: React.FC = () => {
         </div>
         <div className='my-6'>
             <Typography color='primary' className='!font-semibold'>Attest the client's information is correct</Typography>
-            <div className='border rounded'>
+            <div className='border rounded-lg'>
               <div className='flex flex-row items-end'>
                   <Checkbox className='!pb-0'/>
                   <span> Checking this box asserts the following statements are true:</span>

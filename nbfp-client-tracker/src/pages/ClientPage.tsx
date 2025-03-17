@@ -1,9 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { TextField, Typography, Divider } from "@mui/material";
+import { TextField, Typography, Divider, Button } from "@mui/material";
 import DataTable from "../components/DataTable";
+import { useNavigate } from "react-router-dom";
 import TEFAPIncomeChart from "../components/TEFAPIncomeChart";
-import TEFAPEligibility from "../components/TEFAPEligibilityOptions";
+import TEFAPEligibility from "../components/TEFAPEligibility";
 
 const houseMemberCountColumns = [
     { key: 'totalmembers', title: 'Total Members in Household' },
@@ -51,6 +52,8 @@ const ClientPage: React.FC<ClientPageProps> = (id) => {
 
     }, []);
 
+    const navigate = useNavigate();
+
     const fetchClientData = async () => {
         try {
             const response = await fetch(`http://localhost:3001/clients/${id}`);
@@ -63,12 +66,16 @@ const ClientPage: React.FC<ClientPageProps> = (id) => {
 
     return (
         <div className="flex flex-col items-center my-4 mx-4">
-            <Typography variant="h2" className="py-2">Cameron Turner</Typography>
+            <div className="flex flex-row justify-between items-center w-full py-2">
+                <Button variant="contained" size="medium" color="primary" onClick={() => navigate('/')}>Back</Button>
+                <Typography variant="h2">Cameron Turner</Typography>
+                <Button variant="contained" size="medium" color="primary">Save</Button>
+            </div>
             <Typography variant="subtitle1" className="pb-2">Address</Typography>
             <div className="flex flex-row h-screen w-full justify-between">
                 <div className="w-1/2 mx-2 pr-4 flex flex-col">
                         <Typography variant="h6" className="py-4" align="center">Client Eligibility</Typography>
-                        <Typography variant="body2">Date of Eligibility Attestation: </Typography>
+                        <Typography variant="body1">Date of eligibility attestation: </Typography>
 
                         <Divider orientation="horizontal" variant="middle" flexItem />
                         <TEFAPEligibility />
@@ -76,11 +83,11 @@ const ClientPage: React.FC<ClientPageProps> = (id) => {
                 <Divider orientation="vertical" variant="middle" flexItem />
                 <div className="w-1/2 mx-2 pl-4 flex flex-col">
                     <Typography variant="h6" className="py-4" align="center">Client Information</Typography>
-                    <Typography variant="body2">Date of last change to client information: </Typography>
+                    <Typography variant="body1">Date of last change to client information: </Typography>
                     <Divider orientation="horizontal" variant="middle" flexItem />
                     <div className="my-4 flex flex-col">
-                        <div className="my-4">
-                            <DataTable columns={houseMemberCountColumns} data={memberCountRows} />
+                        <div className="my-6">
+                            <DataTable columns={houseMemberCountColumns} data={memberCountRows} augmentable={false} />
                         </div>
                         <TextField
                         id="outlined-multiline-static"
@@ -92,10 +99,10 @@ const ClientPage: React.FC<ClientPageProps> = (id) => {
                         />
                         <div className="flex flex-row mt-5 justify-between">
                             <div className="w-1/2 mr-5" >
-                                <DataTable columns={houseMemberNameColumns} data={memberNameRows} />
+                                <DataTable columns={houseMemberNameColumns} data={memberNameRows} augmentable={true} />
                             </div>
                             <div className="w-1/2 ml-5">
-                                <DataTable columns={houseVisitColumns} data={visitRows} />
+                                <DataTable columns={houseVisitColumns} data={visitRows} augmentable={true}/>
                             </div>
                         </div>
                     </div>

@@ -5,14 +5,21 @@ import SearchBar from "../components/SearchBar";
 import { Typography } from "@mui/material";
 
 
+
 const Dashboard: React.FC = () => {
+    interface ClientData {
+        first: string;
+        last: string;
+        id: number;
+    }
     const [searchValue, setSearchValue] = useState<string>("");
-    const [clients, setClients] = useState<string[]>([]);
+    const [clients, setClients] = useState<ClientData[]>([{first: "John", last: "Doe", id: 1}, {first: "Jane", last: "Smith", id: 2}]);
     const [error, setError] = useState<string>("");
 
-    useEffect(() => {
-        fetchClients();
-    }, );
+
+    // useEffect(() => {
+    //     fetchClients();
+    // }, );
 
     const fetchClients = async () => {
         try{
@@ -26,7 +33,9 @@ const Dashboard: React.FC = () => {
 
     const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
-        setClients(clients.filter((client) => client.includes(e.target.value)));
+        setClients(clients.filter((client) => 
+            client.first.includes(e.target.value) || client.last.includes(e.target.value)
+        ));
     }
 
 
@@ -37,7 +46,7 @@ const Dashboard: React.FC = () => {
                 <SearchBar onChange={(e) => onSearchChange(e)}/>
             </div>
             <div className="w-1/3 mt-5 flex-grow">
-                <ClientList clients={["Cameron Turner", "Justin Morris", "Kade Sivak"]} />
+                <ClientList clients={clients} />
             </div>
             
         </div>
