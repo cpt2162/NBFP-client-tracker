@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, Typography, List, ListItem, ListItemText, Checkbox }  from '@mui/material/';
+import { Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, Typography, List, ListItem, ListItemText, Checkbox }  from '@mui/material';
 import { Check } from '@mui/icons-material';
 import TEFAPIncomeChart from './TEFAPIncomeChart';
 const TEFAPEligibility: React.FC = () => {
@@ -17,7 +17,7 @@ const TEFAPEligibility: React.FC = () => {
               <div className='flex flex-row items-start my-2'>
                   <Checkbox className='!pt-1'/>
                   <span> <b>Categorical:</b> Clients are categorically eligible to receive USDA Foods through TEFAP if their household
-                  participates in any of the following programs: SNAP, WIC, TANF, Medicaid, or SSI.</span>
+                  participates in any of the following programs: <b>SNAP, WIC, TANF, Medicaid, or SSI.</b></span>
               </div>
               <div className='flex flex-row items-start'>
                   <Checkbox className='!pt-1'/>
