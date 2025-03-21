@@ -1,8 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using server.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddOpenApi();
-builder.Services.AddDbContext<DbContext>(options =>
+builder.Services.AddDbContext<NBFPDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddEndpointsApiExplorer();
 
@@ -10,7 +14,7 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<DbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<NBFPDbContext>();
     db.Database.Migrate();
 }
 
@@ -41,14 +45,14 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
-app.MapGet("/users", async (DbContext db) =>
+app.MapGet("/users", async (NBFPDbContext db) =>
 {
     var users = await db.Users.ToListAsync();
     return users;
 })
 .WithName("GetUsers");
 
-app.MapPost("/users", async (DbContext db, User user) =>
+app.MapPost("/users", async (NBFPDbContext db, User user) =>
 {
     db.Users.Add(user);
     await db.SaveChangesAsync();
@@ -56,7 +60,7 @@ app.MapPost("/users", async (DbContext db, User user) =>
 })
 .WithName("CreateUser");
 
-app.MapGet("/households", async (DbContext db) =>
+app.MapGet("/households", async (NBFPDbContext db) =>
 {
     var households = await db.Households.ToListAsync();
     return households;

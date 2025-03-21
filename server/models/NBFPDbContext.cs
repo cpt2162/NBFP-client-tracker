@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace server.Models;
 
-public class DbContext : Microsoft.EntityFrameworkCore.DbContext
+public class NBFPDbContext : Microsoft.EntityFrameworkCore.DbContext
 {
-    public DbContext(DbContextOptions<DbContext> options) : base(options)
+    public NBFPDbContext(DbContextOptions<NBFPDbContext> options) : base(options)
     {
     }
 
