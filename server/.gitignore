@@ -2,3 +2,4 @@ bin/
 obj/
 *.csproj.user
 appsettings.*.json
+*.dll

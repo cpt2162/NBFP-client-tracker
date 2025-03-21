@@ -15,7 +15,22 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<NBFPDbContext>();
-    db.Database.Migrate();
+    int retries = 5;
+    while (retries > 0)
+    {
+        try
+        {
+            db.Database.Migrate();
+            break;
+        }
+        catch (Npgsql.NpgsqlException ex)
+        {
+            retries--;
+            if (retries == 0) throw;
+            Console.WriteLine($"Database connection failed: {ex.Message}. Retrying...");
+            Thread.Sleep(2000);
+        }
+    }
 }
 
 // Configure the HTTP request pipeline.
@@ -26,24 +41,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
 
 app.MapGet("/users", async (NBFPDbContext db) =>
 {
@@ -68,8 +65,3 @@ app.MapGet("/households", async (NBFPDbContext db) =>
 .WithName("GetHouseholds");
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:latest
+    container_name: nbfp-db
+    environment:
+      - POSTGRES_USER=nbfpAdmin
+      - POSTGRES_PASSWORD=nbfpfeedsmore
+      - POSTGRES_DB=nbfpDB
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  server:
+    build: ./server
+    container_name: nbfp-api
+    ports:
+      - "5000:80"
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Database=nbfpDB;Username=nbfpAdmin;Password=nbfpfeedsmore
+volumes:
+  pgdata:
