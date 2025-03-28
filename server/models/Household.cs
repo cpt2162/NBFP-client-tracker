@@ -1,6 +1,5 @@
-namespace server.Models
-{
-    public class Households
+namespace server.Models;
+    public class Household
     {
         public int Id { get; set; }
         public required string Address { get; set; }
@@ -15,4 +14,3 @@ namespace server.Models
         public required DateTime LastUpdated { get; set; } = DateTime.Now;
         public string? Others_Authorized { get; set; }
     }
-}

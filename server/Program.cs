@@ -20,14 +20,16 @@ using (var scope = app.Services.CreateScope())
     {
         try
         {
+            Console.WriteLine("Attempting to apply migrations...");
             db.Database.Migrate();
+            Console.WriteLine("Migrations applied successfully.");
             break;
         }
         catch (Npgsql.NpgsqlException ex)
         {
             retries--;
+            Console.WriteLine($"Database migration failed: {ex.Message}. Retrying...");
             if (retries == 0) throw;
-            Console.WriteLine($"Database connection failed: {ex.Message}. Retrying...");
             Thread.Sleep(2000);
         }
     }

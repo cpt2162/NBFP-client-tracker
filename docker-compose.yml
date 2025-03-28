@@ -8,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=nbfpfeedsmore
       - POSTGRES_DB=nbfpDB
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
   server:
