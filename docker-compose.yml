@@ -15,7 +15,7 @@ services:
     build: ./server
     container_name: nbfp-api
     ports:
-      - "5000:80"
+      - "5001:80"
     depends_on:
       - db
     environment:

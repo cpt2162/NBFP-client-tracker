@@ -4,10 +4,10 @@ namespace server.Models;
 
 public class NBFPDbContext : DbContext
 {
-    public DbSet<User> Users { get; set; }
-    public DbSet<Household> Households { get; set; }
-    public DbSet<HouseholdMember> HouseholdMembers { get; set; }
-    public DbSet<HouseholdVisit> HouseholdVisits { get; set; }
+    public DbSet<User> User { get; set; }
+    public DbSet<Household> Household { get; set; }
+    public DbSet<HouseholdMember> HouseholdMember { get; set; }
+    public DbSet<HouseholdVisit> HouseholdVisit { get; set; }
 
     public NBFPDbContext(DbContextOptions<NBFPDbContext> options) : base(options) { }
 

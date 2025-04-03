@@ -67,7 +67,7 @@ namespace server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Households");
+                    b.ToTable("Household");
 
                     b.HasData(
                         new
@@ -76,10 +76,10 @@ namespace server.Migrations
                             Address = "123 Main St, Buffalo, NY, 14203",
                             Adults = 1,
                             Children = 2,
-                            EligibilityAttestationDate = new DateTime(2025, 3, 18, 23, 34, 47, 935, DateTimeKind.Utc).AddTicks(8601),
+                            EligibilityAttestationDate = new DateTime(2025, 3, 24, 19, 49, 23, 12, DateTimeKind.Utc).AddTicks(6887),
                             EligibilityType = "Categorical",
                             Infants = 1,
-                            LastUpdated = new DateTime(2025, 3, 18, 23, 34, 47, 935, DateTimeKind.Utc).AddTicks(8691),
+                            LastUpdated = new DateTime(2025, 3, 24, 19, 49, 23, 12, DateTimeKind.Utc).AddTicks(7037),
                             Members = 5,
                             Seniors = 0,
                             Toddlers = 1
@@ -90,10 +90,10 @@ namespace server.Migrations
                             Address = "456 Elm St, Buffalo, NY, 14203",
                             Adults = 2,
                             Children = 1,
-                            EligibilityAttestationDate = new DateTime(2025, 3, 23, 23, 34, 47, 935, DateTimeKind.Utc).AddTicks(8756),
+                            EligibilityAttestationDate = new DateTime(2025, 3, 29, 19, 49, 23, 12, DateTimeKind.Utc).AddTicks(7152),
                             EligibilityType = "Income",
                             Infants = 0,
-                            LastUpdated = new DateTime(2025, 3, 23, 23, 34, 47, 935, DateTimeKind.Utc).AddTicks(8757),
+                            LastUpdated = new DateTime(2025, 3, 29, 19, 49, 23, 12, DateTimeKind.Utc).AddTicks(7153),
                             Members = 3,
                             Seniors = 0,
                             Toddlers = 0
@@ -124,7 +124,7 @@ namespace server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HouseholdMembers");
+                    b.ToTable("HouseholdMember");
 
                     b.HasData(
                         new
@@ -213,7 +213,7 @@ namespace server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HouseholdVisits");
+                    b.ToTable("HouseholdVisit");
 
                     b.HasData(
                         new
@@ -221,14 +221,14 @@ namespace server.Migrations
                             Id = 1,
                             HouseholdId = 1,
                             StaffName = "Cameron Turner",
-                            VisitDate = new DateTime(2025, 3, 23, 23, 34, 47, 935, DateTimeKind.Utc).AddTicks(9649)
+                            VisitDate = new DateTime(2025, 3, 29, 19, 49, 23, 12, DateTimeKind.Utc).AddTicks(8674)
                         },
                         new
                         {
                             Id = 2,
                             HouseholdId = 2,
                             StaffName = "Cameron Turner",
-                            VisitDate = new DateTime(2025, 3, 26, 23, 34, 47, 935, DateTimeKind.Utc).AddTicks(9713)
+                            VisitDate = new DateTime(2025, 4, 1, 19, 49, 23, 12, DateTimeKind.Utc).AddTicks(8792)
                         });
                 });
 
@@ -250,7 +250,7 @@ namespace server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
 
                     b.HasData(
                         new
