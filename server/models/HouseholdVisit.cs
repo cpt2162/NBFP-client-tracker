@@ -6,4 +6,7 @@ public class HouseholdVisit
     public required int HouseholdId { get; set; }
     public required DateTime VisitDate { get; set; }
     public required string StaffName { get; set; }
+
+    /// Navigation prop
+    public Household Household { get; set; } = null!;
 }

@@ -13,13 +13,25 @@ public class NBFPDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<HouseholdMember>()
+            .HasOne(hm => hm.Household)
+            .WithMany(h => h.HouseholdMembers)
+            .HasForeignKey(hm => hm.HouseholdId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<HouseholdVisit>()
+            .HasOne(hv => hv.Household)
+            .WithMany(h => h.HouseholdVisits)
+            .HasForeignKey(hv => hv.HouseholdId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         modelBuilder.Entity<User>().HasData(
             new User { Id = 1, Username = "nbfpAdmin", Password = "nbfpfeedsmore" }
         );
 
         modelBuilder.Entity<Household>().HasData(
-            new Household { Id = 1, Address = "123 Main St, Buffalo, NY, 14203", Members = 5, Infants = 1, Toddlers = 1, Children = 2, Adults = 1, Seniors = 0, EligibilityType = "Categorical", EligibilityAttestationDate = DateTime.UtcNow.AddDays(-10), LastUpdated = DateTime.UtcNow.AddDays(-10) },
-            new Household { Id = 2, Address = "456 Elm St, Buffalo, NY, 14203", Members = 3, Infants = 0, Toddlers = 0, Children = 1, Adults = 2, Seniors = 0, EligibilityType = "Income", EligibilityAttestationDate = DateTime.UtcNow.AddDays(-5), LastUpdated = DateTime.UtcNow.AddDays(-5) }
+            new Household { Id = 1, RecipientFirst = "Dayquan", RecipientLast = "Jones", Address = "123 Main St, Buffalo, NY, 14203", Members = 5, Infants = 1, Toddlers = 1, Children = 2, Adults = 1, Seniors = 0, EligibilityType = "Categorical", EligibilityAttestationDate = DateTime.UtcNow.AddDays(-10), LastUpdated = DateTime.UtcNow.AddDays(-10) },
+            new Household { Id = 2, RecipientFirst = "Daniel", RecipientLast = "Abrams", Address = "456 Elm St, Buffalo, NY, 14203", Members = 3, Infants = 0, Toddlers = 0, Children = 1, Adults = 2, Seniors = 0, EligibilityType = "Income", EligibilityAttestationDate = DateTime.UtcNow.AddDays(-5), LastUpdated = DateTime.UtcNow.AddDays(-5) }
         );
 
         modelBuilder.Entity<HouseholdMember>().HasData(

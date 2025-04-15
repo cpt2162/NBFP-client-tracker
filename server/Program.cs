@@ -2,15 +2,18 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using server.Models;
+using server.Endpoints;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<NBFPDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
         .ConfigureWarnings(w => w.Log(RelationalEventId.PendingModelChangesWarning)));
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<PasswordService>();
+builder.Services.AddScoped<EncryptionService>();
 
 var app = builder.Build();
 
@@ -55,28 +58,14 @@ if (app.Environment.IsDevelopment())
 app.MapGet("/test", () => "Hello World!")
     .WithName("Test");
 
-
-app.MapGet("/users", async (NBFPDbContext db) =>
-{
-    var users = await db.User.ToListAsync();
-    return users;
-})
-.WithName("GetUsers");
-
-app.MapPost("/users", async (NBFPDbContext db, User user) =>
-{
-    db.User.Add(user);
-    await db.SaveChangesAsync();
-    return Results.Created($"/users/{user.Id}", user);
-})
-.WithName("CreateUser");
-
 app.MapGet("/households", async (NBFPDbContext db) =>
 {
     var households = await db.Household.ToListAsync();
     return households;
 })
 .WithName("GetHouseholds");
+
+app.MapUserEndpoints();
 
 app.Urls.Add("http://0.0.0.0:80");
 app.Run();
