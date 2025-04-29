@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
+using System.Text;
 using server.Models;
 using server.Endpoints;
 using server.Services;
@@ -14,6 +18,26 @@ builder.Services.AddDbContext<NBFPDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<EncryptionService>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"]
+    };
+});
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -58,14 +82,19 @@ if (app.Environment.IsDevelopment())
 app.MapGet("/test", () => "Hello World!")
     .WithName("Test");
 
-app.MapGet("/households", async (NBFPDbContext db) =>
+    // Temporary endpoint to hash password
+app.MapGet("/hash-password", (PasswordService passwordService) =>
 {
-    var households = await db.Household.ToListAsync();
-    return households;
-})
-.WithName("GetHouseholds");
+    string password = "nbfpfeedsmore";
+    string hashedPassword = passwordService.HashPassword(password);
+    return Results.Ok(new { HashedPassword = hashedPassword });
+}).WithName("HashPassword");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapUserEndpoints();
+app.MapHouseholdEndpoints();
 
 app.Urls.Add("http://0.0.0.0:80");
 app.Run();

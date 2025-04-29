@@ -2,3 +2,8 @@
 docker-compose.*.yml
 pgdata/
 *.dockerignore
+server/bin/
+server/obj/
+server/*.csproj.user
+server/appsettings.*.json
+server/*.dll

@@ -26,7 +26,7 @@ public class NBFPDbContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<User>().HasData(
-            new User { Id = 1, Username = "nbfpAdmin", Password = "nbfpfeedsmore" }
+            new User { Id = 1, Username = "nbfpAdmin", Password = "AQAAAAIAAYagAAAAEH05T1xORdZqsN+blxsoi/tM9NvAKFAH3mw2CMWGOO+2w64Wn6bp5OrzA1JM8GLyiw==" }
         );
 
         modelBuilder.Entity<Household>().HasData(
